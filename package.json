@@ -1,5 +1,5 @@
 {
-  "name": "@aperturerobotics/objectenc-js",
+  "name": "@aperturerobotics/objectenc",
   "private": true,
   "version": "0.0.0",
   "description": "Object encryption with pluggable encryption schemes.",
