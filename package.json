@@ -74,6 +74,7 @@
     "mapCoverage": true
   },
   "devDependencies": {
+    "@types/es6-promise": "^3.3.0",
     "@types/jest": "^21.1.0",
     "@types/node": "^8.0.0",
     "colors": "^1.1.2",
@@ -104,6 +105,11 @@
     "validate-commit-msg": "^2.12.2"
   },
   "dependencies": {
-    "protobufjs": "^6.8.4"
+    "aes-js": "^3.1.0",
+    "buffer": "^5.0.8",
+    "multihashing": "^0.3.2",
+    "node-webcrypto-ossl": "^1.0.33",
+    "protobufjs": "^6.8.4",
+    "typedarray-to-buffer": "^3.1.2"
   }
 }

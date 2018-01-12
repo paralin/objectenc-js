@@ -1,16 +1,20 @@
 import * as Protobuf from 'protobufjs/minimal'
+import { ResourceResolverFunc } from './resource'
 import { objectenc } from './pb'
 
 // EncryptedBlob contains a potentially encrypted blob of data.
-export class EncryptedBlob {
-  private pb: objectenc.EncryptedBlob
-
+export class EncryptedBlob extends objectenc.EncryptedBlob {
+  // Construct a EncryptedBlob with a Protobuf encrypted blob.
   constructor(proto?: objectenc.IEncryptedBlob) {
-    this.pb = new objectenc.EncryptedBlob(proto)
+    super(proto)
   }
-}
 
-// Encrypt attempts to encrypt a blob, assuming no resources will need to be resolved.
-export function Encrypt(encType: objectenc.EncryptionType, blob: Protobuf.Buffer) {
-  return EncryptWithResolver()
+  // Validate checks the blob to see if it "looks ok" without actually decrypting it.
+  public validate(): Error {
+    if (!this.encData.length) {
+      return new Error('encrypted blob is empty')
+    }
+
+    return null
+  }
 }

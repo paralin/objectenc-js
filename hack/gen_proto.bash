@@ -8,7 +8,14 @@ if [ ! -d ../objectenc ]; then
     exit 1
 fi
 
+finalize() {
+    pbts -o ./src/pb/${1}.d.ts ./src/pb/${1}.js
+    sed -i '1s;^;/* tslint:disable */\n;' ./src/pb/${1}.d.ts
+}
+
 export PATH=$PATH:$(pwd)/node_modules/.bin
 pbjs -t static-module -w commonjs -o ./src/pb/objectenc.js ../objectenc/objectenc.proto
-pbts -o ./src/pb/objectenc.d.ts ./src/pb/objectenc.js
-sed -i '1s;^;/* tslint:disable */\n;' ./src/pb/objectenc.d.ts
+finalize objectenc
+
+pbjs -t static-module -w commonjs -o ./src/pb/aes.js ../objectenc/aes/aes.proto
+finalize aes
