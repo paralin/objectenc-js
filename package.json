@@ -83,7 +83,7 @@
     "cross-env": "^5.0.1",
     "cz-conventional-changelog": "^2.0.0",
     "husky": "^0.14.0",
-    "jest": "^21.0.0",
+    "jest": "^22.0.0",
     "lint-staged": "^6.0.0",
     "lodash.camelcase": "^4.3.0",
     "prettier": "^1.4.4",
@@ -105,10 +105,11 @@
     "validate-commit-msg": "^2.12.2"
   },
   "dependencies": {
+    "@aperturerobotics/timestamp": "^0.0.0",
     "buffer": "^5.0.8",
     "multihashing": "^0.3.2",
     "node-webcrypto-ossl": "^1.0.33",
-    "protobufjs": "^6.8.4",
-    "typedarray-to-buffer": "^3.1.2"
+    "protobufjs": "^6.8.0",
+    "typedarray-to-buffer": "^3.1.0"
   }
 }
