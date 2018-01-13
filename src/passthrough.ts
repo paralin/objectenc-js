@@ -11,7 +11,7 @@ export class Passthrough implements IEncryptionImpl {
 
   // ValidateMetadata checks the metadata field.
   // If metadata is not expected, this should check that it doesn't exist.
-  public validateMetadata(metadata: Uint8Array): Error {
+  public validateMetadata(metadata: Uint8Array): Error | null {
     if (!metadata || !metadata.length) {
       return null
     }
@@ -21,7 +21,7 @@ export class Passthrough implements IEncryptionImpl {
 
   // DecryptBlob decrypts an encryptedblob.
   public async decryptBlob(
-    resolver: ResourceResolverFunc,
+    resolver: ResourceResolverFunc | null,
     blob: objectenc.EncryptedBlob
   ): Promise<Uint8Array> {
     return blob.encData

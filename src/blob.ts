@@ -10,7 +10,7 @@ export class EncryptedBlob extends objectenc.EncryptedBlob {
   }
 
   // Validate checks the blob to see if it "looks ok" without actually decrypting it.
-  public validate(): Error {
+  public validate(): Error | null {
     if (!this.encData.length) {
       return new Error('encrypted blob is empty')
     }

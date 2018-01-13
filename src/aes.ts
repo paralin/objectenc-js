@@ -29,14 +29,13 @@ export function newAESKeySize(keyLen: number): aes.KeySize {
 }
 
 // validateAESMetadata checks AES metadata.
-export function validateAESMetadata(meta: aes.AESMetadata): Error {
+export function validateAESMetadata(meta: aes.AESMetadata): Error | null {
   if (!(meta.keySize in aes.KeySize)) {
     return new Error(`key size unknown: ${meta.keySize}`)
   }
 
   try {
-    multihash.decode(meta.keyHash)
-    return undefined
+    multihashing.decode(meta.keyHash)
   } catch (e) {
     return e
   }
@@ -63,7 +62,7 @@ export class AES implements IEncryptionImpl {
 
   // ValidateMetadata checks the metadata field.
   // If metadata is not expected, this should check that it doesn't exist.
-  public validateMetadata(metadata: Uint8Array): Error {
+  public validateMetadata(metadata: Uint8Array): Error | null {
     try {
       let aesMetadata = aes.AESMetadata.decode(metadata)
       return validateAESMetadata(aesMetadata)
@@ -74,7 +73,7 @@ export class AES implements IEncryptionImpl {
 
   // DecryptBlob decrypts an encryptedblob.
   public async decryptBlob(
-    resolver: ResourceResolverFunc,
+    resolver: ResourceResolverFunc | null,
     blob: objectenc.EncryptedBlob
   ): Promise<Uint8Array> {
     let aesMetadata = aes.AESMetadata.decode(blob.encMetadata)
@@ -97,7 +96,7 @@ export class AES implements IEncryptionImpl {
     resolver: ResourceResolverFunc,
     data: Uint8Array
   ): Promise<objectenc.EncryptedBlob> {
-    let iv = crypto.getRandomValues(new Uint8Array(aesIvLen))
+    let iv = <Uint8Array>crypto.getRandomValues(new Uint8Array(aesIvLen))
     let meta = new aes.AESMetadata({ iv })
     let blob = new objectenc.EncryptedBlob({
       encType: objectenc.EncryptionType.EncryptionType_AES
@@ -111,7 +110,7 @@ export class AES implements IEncryptionImpl {
     // build key metadata
     let keyRaw = new Uint8Array(await crypto.subtle.exportKey('raw', keyResource.keyData))
     meta.keySize = newAESKeySize(keyRaw.length)
-    meta.keyHashSalt = crypto.getRandomValues(new Uint8Array(keyHashSaltLen))
+    meta.keyHashSalt = <Uint8Array>crypto.getRandomValues(new Uint8Array(keyHashSaltLen))
     let hashedKeyData = new Uint8Array(keyRaw.length + keyHashSaltLen)
     hashedKeyData.set(meta.keyHashSalt, 0)
     hashedKeyData.set(keyRaw, keyHashSaltLen)
@@ -126,18 +125,24 @@ export class AES implements IEncryptionImpl {
   }
 
   private async resolveKey(
-    resolver: ResourceResolverFunc,
+    resolver: ResourceResolverFunc | null,
     blob: objectenc.EncryptedBlob,
     iv: Uint8Array | null,
-    encryptDat: Uint8Array,
+    encryptDat: Uint8Array | null,
     keySaltMultihash: IKeySaltMultihash
   ): Promise<IKeyResource> {
+    if (!resolver) {
+      throw new Error('aes requires a resolver to lookup keys')
+    }
+
     let res: IKeyResource = {
       resourceId: 'IKeyResource',
       keySaltMultihash: keySaltMultihash,
       encryptionType: objectenc.EncryptionType.EncryptionType_AES,
-      encrypting: encryptDat && encryptDat.length,
-      encryptingData: encryptDat
+      encrypting: !!(encryptDat && encryptDat.length)
+    }
+    if (encryptDat) {
+      res.encryptingData = encryptDat
     }
     await resolver(blob, res) // throws e
     if (!res.keyData || !res.keyData.extractable) {

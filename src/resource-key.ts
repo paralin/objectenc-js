@@ -17,7 +17,7 @@ export interface IKeyResource {
   // Encrypting indicates if we are encrypting or decrypting.
   encrypting: boolean
   // EncryptingData contains the data we are encrypting, of we are.
-  encryptingData: Uint8Array
+  encryptingData?: Uint8Array
 
   // KeyData is the resolved key data.
   // Filled by resolver.

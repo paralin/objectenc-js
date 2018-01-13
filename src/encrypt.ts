@@ -9,7 +9,7 @@ export async function Encrypt(
   resolver?: ResourceResolverFunc
 ): Promise<objectenc.EncryptedBlob> {
   let impl = GetEncryptionImpl(encType)
-  let encBlob = await impl.encryptBlob(resolver, blob)
+  let encBlob = await impl.encryptBlob(resolver || null, blob)
   encBlob.encType = encType
   return encBlob
 }

@@ -8,5 +8,5 @@ export async function Decrypt(
   resolver?: ResourceResolverFunc
 ): Promise<Uint8Array> {
   let impl = GetEncryptionImpl(encBlob.encType)
-  return impl.decryptBlob(resolver, encBlob)
+  return impl.decryptBlob(resolver || null, encBlob)
 }
