@@ -1,7 +1,7 @@
 let webCrypto = window.crypto
+import NodeWebCrypto from 'node-webcrypto-ossl'
+
 if (!webCrypto) {
-  let require: any
-  let webCryptoCtor = require('node-webcrypto-ossl')
-  webCrypto = new webCryptoCtor()
+  webCrypto = new NodeWebCrypto()
 }
 export const crypto = webCrypto
