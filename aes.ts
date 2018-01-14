@@ -5,7 +5,6 @@ import { IKeySaltMultihash, IKeyResource } from './resource-key'
 import { crypto } from './crypto'
 
 import * as multihashing from 'multihashing'
-import * as multihashes from 'multihashes'
 import toBuffer from 'typedarray-to-buffer'
 
 // aesIvLen is the length of the AES IV in bytes

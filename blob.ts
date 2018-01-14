@@ -1,5 +1,3 @@
-import * as Protobuf from 'protobufjs/minimal'
-import { ResourceResolverFunc } from './resource'
 import { objectenc } from './pb'
 
 // EncryptedBlob contains a potentially encrypted blob of data.
