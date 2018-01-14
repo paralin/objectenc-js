@@ -20,7 +20,7 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "tsc && tsc --module commonjs --outDir dist/lib && cp ./src/pb/*.js ./dist/lib/pb && cp ./src/pb/*.js ./dist/es/pb/ && rollup -c rollup.config.ts && typedoc --out dist/docs --target es6 --theme minimal --mode file src",
+    "build": "tsc && tsc --module commonjs --outDir dist/lib && ./hack/copy_pb.bash && rollup -c rollup.config.ts && typedoc --out dist/docs --target es6 --theme minimal --mode file src",
     "start": "tsc -w & rollup -c rollup.config.ts -w",
     "test": "jest",
     "test:watch": "jest --watch",
