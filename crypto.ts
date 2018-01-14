@@ -1,5 +1,5 @@
 let webCrypto = window.crypto
-import NodeWebCrypto from 'node-webcrypto-ossl'
+import * as NodeWebCrypto from 'node-webcrypto-ossl'
 
 if (!webCrypto) {
   webCrypto = new NodeWebCrypto()
