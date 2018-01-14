@@ -1,7 +1,7 @@
 {
   "name": "@aperturerobotics/objectenc",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Object encryption with pluggable encryption schemes.",
   "main": "dist/objectenc-js.umd.js",
   "module": "dist/objectenc-js.es5.js",
@@ -94,7 +94,7 @@
     "validate-commit-msg": "^2.12.2"
   },
   "dependencies": {
-    "@aperturerobotics/timestamp": "^0.0.0",
+    "@aperturerobotics/timestamp": "^0.2.0",
     "buffer": "^5.0.8",
     "multihashing": "^0.3.2",
     "node-webcrypto-ossl": "^1.0.33",
