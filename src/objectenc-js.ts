@@ -2,6 +2,7 @@ import * as Protobuf from 'protobufjs/minimal'
 
 export * from './pb'
 export * from './builtin'
+
 export * from './resource'
 export * from './resource-key'
 
