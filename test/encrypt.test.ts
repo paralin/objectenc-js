@@ -1,8 +1,8 @@
-import { Encrypt } from '../src/encrypt'
-import { crypto } from '../src/crypto'
-import { objectenc } from '../src/pb'
-import { IResource, ResourceResolverFunc } from '../src/resource'
-import { IKeyResource } from '../src/resource-key'
+import { Encrypt } from '../encrypt'
+import { crypto } from '../crypto'
+import { objectenc } from '../pb'
+import { IResource, ResourceResolverFunc } from '../resource'
+import { IKeyResource } from '../resource-key'
 import * as Protobuf from 'protobufjs/minimal'
 
 describe('Encrypt', () => {

@@ -1,4 +1,4 @@
-import { EncryptedBlob } from '../src/blob'
+import { EncryptedBlob } from '../blob'
 
 describe('EncryptedBlob', () => {
   it('is instantiable', () => {

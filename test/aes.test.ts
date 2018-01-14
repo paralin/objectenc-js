@@ -1,11 +1,11 @@
-import { AES } from '../src/aes'
-import { crypto } from '../src/crypto'
-import { objectenc } from '../src/pb'
-import { IResource, ResourceResolverFunc } from '../src/resource'
-import { IKeyResource } from '../src/resource-key'
+import { AES } from '../aes'
+import { crypto } from '../crypto'
+import { objectenc } from '../pb'
+import { IResource, ResourceResolverFunc } from '../resource'
+import { IKeyResource } from '../resource-key'
 import * as Protobuf from 'protobufjs/minimal'
-import { Encrypt } from '../src/encrypt'
-import { Decrypt } from '../src/decrypt'
+import { Encrypt } from '../encrypt'
+import { Decrypt } from '../decrypt'
 
 describe('AES', () => {
   it('is instantiable', () => {
