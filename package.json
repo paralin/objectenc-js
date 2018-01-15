@@ -3,12 +3,7 @@
   "private": true,
   "version": "0.2.0",
   "description": "Object encryption with pluggable encryption schemes.",
-  "main": "dist/objectenc-js.umd.js",
-  "module": "dist/objectenc-js.es5.js",
-  "typings": "dist/types/objectenc-js.d.ts",
-  "files": [
-    "dist"
-  ],
+  "main": "index.ts",
   "author": "Christian Stewart <christian@paral.in>",
   "repository": {
     "type": "git",
