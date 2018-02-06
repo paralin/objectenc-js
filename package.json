@@ -38,7 +38,7 @@
   },
   "jest": {
     "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      ".(ts|tsx)": "../../node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
@@ -72,7 +72,6 @@
     "cross-env": "^5.0.1",
     "cz-conventional-changelog": "^2.0.0",
     "husky": "^0.14.0",
-    "jest": "^22.0.0",
     "lint-staged": "^6.0.0",
     "lodash.camelcase": "^4.3.0",
     "prettier": "^1.4.4",
@@ -91,6 +90,7 @@
   "dependencies": {
     "@aperturerobotics/timestamp": "^0.2.0",
     "buffer": "^5.0.8",
+    "lerna": "^2.7.0",
     "multihashing": "^0.3.2",
     "node-webcrypto-ossl": "^1.0.33",
     "protobufjs": "^6.8.0",
