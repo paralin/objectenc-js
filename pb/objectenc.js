@@ -27,6 +27,7 @@ $root.objectenc = (function() {
          * @property {objectenc.EncryptionType|null} [encType] EncryptedBlob encType
          * @property {Uint8Array|null} [encData] EncryptedBlob encData
          * @property {Uint8Array|null} [encMetadata] EncryptedBlob encMetadata
+         * @property {objectenc.CompressionType|null} [compressionType] EncryptedBlob compressionType
          */
 
         /**
@@ -69,6 +70,14 @@ $root.objectenc = (function() {
         EncryptedBlob.prototype.encMetadata = $util.newBuffer([]);
 
         /**
+         * EncryptedBlob compressionType.
+         * @member {objectenc.CompressionType} compressionType
+         * @memberof objectenc.EncryptedBlob
+         * @instance
+         */
+        EncryptedBlob.prototype.compressionType = 0;
+
+        /**
          * Creates a new EncryptedBlob instance using the specified properties.
          * @function create
          * @memberof objectenc.EncryptedBlob
@@ -98,6 +107,8 @@ $root.objectenc = (function() {
                 writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.encData);
             if (message.encMetadata != null && message.hasOwnProperty("encMetadata"))
                 writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.encMetadata);
+            if (message.compressionType != null && message.hasOwnProperty("compressionType"))
+                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.compressionType);
             return writer;
         };
 
@@ -141,6 +152,9 @@ $root.objectenc = (function() {
                 case 3:
                     message.encMetadata = reader.bytes();
                     break;
+                case 4:
+                    message.compressionType = reader.int32();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -182,6 +196,7 @@ $root.objectenc = (function() {
                     return "encType: enum value expected";
                 case 0:
                 case 1:
+                case 2:
                     break;
                 }
             if (message.encData != null && message.hasOwnProperty("encData"))
@@ -190,6 +205,14 @@ $root.objectenc = (function() {
             if (message.encMetadata != null && message.hasOwnProperty("encMetadata"))
                 if (!(message.encMetadata && typeof message.encMetadata.length === "number" || $util.isString(message.encMetadata)))
                     return "encMetadata: buffer expected";
+            if (message.compressionType != null && message.hasOwnProperty("compressionType"))
+                switch (message.compressionType) {
+                default:
+                    return "compressionType: enum value expected";
+                case 0:
+                case 1:
+                    break;
+                }
             return null;
         };
 
@@ -214,6 +237,10 @@ $root.objectenc = (function() {
             case 1:
                 message.encType = 1;
                 break;
+            case "EncryptionType_SECRET_BOX":
+            case 2:
+                message.encType = 2;
+                break;
             }
             if (object.encData != null)
                 if (typeof object.encData === "string")
@@ -225,6 +252,16 @@ $root.objectenc = (function() {
                     $util.base64.decode(object.encMetadata, message.encMetadata = $util.newBuffer($util.base64.length(object.encMetadata)), 0);
                 else if (object.encMetadata.length)
                     message.encMetadata = object.encMetadata;
+            switch (object.compressionType) {
+            case "CompressionType_UNCOMPRESSED":
+            case 0:
+                message.compressionType = 0;
+                break;
+            case "CompressionType_SNAPPY":
+            case 1:
+                message.compressionType = 1;
+                break;
+            }
             return message;
         };
 
@@ -245,6 +282,7 @@ $root.objectenc = (function() {
                 object.encType = options.enums === String ? "EncryptionType_UNENCRYPTED" : 0;
                 object.encData = options.bytes === String ? "" : [];
                 object.encMetadata = options.bytes === String ? "" : [];
+                object.compressionType = options.enums === String ? "CompressionType_UNCOMPRESSED" : 0;
             }
             if (message.encType != null && message.hasOwnProperty("encType"))
                 object.encType = options.enums === String ? $root.objectenc.EncryptionType[message.encType] : message.encType;
@@ -252,6 +290,8 @@ $root.objectenc = (function() {
                 object.encData = options.bytes === String ? $util.base64.encode(message.encData, 0, message.encData.length) : options.bytes === Array ? Array.prototype.slice.call(message.encData) : message.encData;
             if (message.encMetadata != null && message.hasOwnProperty("encMetadata"))
                 object.encMetadata = options.bytes === String ? $util.base64.encode(message.encMetadata, 0, message.encMetadata.length) : options.bytes === Array ? Array.prototype.slice.call(message.encMetadata) : message.encMetadata;
+            if (message.compressionType != null && message.hasOwnProperty("compressionType"))
+                object.compressionType = options.enums === String ? $root.objectenc.CompressionType[message.compressionType] : message.compressionType;
             return object;
         };
 
@@ -275,11 +315,27 @@ $root.objectenc = (function() {
      * @enum {string}
      * @property {number} EncryptionType_UNENCRYPTED=0 EncryptionType_UNENCRYPTED value
      * @property {number} EncryptionType_AES=1 EncryptionType_AES value
+     * @property {number} EncryptionType_SECRET_BOX=2 EncryptionType_SECRET_BOX value
      */
     objectenc.EncryptionType = (function() {
         var valuesById = {}, values = Object.create(valuesById);
         values[valuesById[0] = "EncryptionType_UNENCRYPTED"] = 0;
         values[valuesById[1] = "EncryptionType_AES"] = 1;
+        values[valuesById[2] = "EncryptionType_SECRET_BOX"] = 2;
+        return values;
+    })();
+
+    /**
+     * CompressionType enum.
+     * @name objectenc.CompressionType
+     * @enum {string}
+     * @property {number} CompressionType_UNCOMPRESSED=0 CompressionType_UNCOMPRESSED value
+     * @property {number} CompressionType_SNAPPY=1 CompressionType_SNAPPY value
+     */
+    objectenc.CompressionType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "CompressionType_UNCOMPRESSED"] = 0;
+        values[valuesById[1] = "CompressionType_SNAPPY"] = 1;
         return values;
     })();
 

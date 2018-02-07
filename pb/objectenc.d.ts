@@ -13,6 +13,9 @@ export namespace objectenc {
 
     /** EncryptedBlob encMetadata */
     encMetadata?: Uint8Array | null
+
+    /** EncryptedBlob compressionType */
+    compressionType?: objectenc.CompressionType | null
   }
 
   /** Represents an EncryptedBlob. */
@@ -31,6 +34,9 @@ export namespace objectenc {
 
     /** EncryptedBlob encMetadata. */
     public encMetadata: Uint8Array
+
+    /** EncryptedBlob compressionType. */
+    public compressionType: objectenc.CompressionType
 
     /**
      * Creates a new EncryptedBlob instance using the specified properties.
@@ -118,6 +124,13 @@ export namespace objectenc {
   /** EncryptionType enum. */
   enum EncryptionType {
     EncryptionType_UNENCRYPTED = 0,
-    EncryptionType_AES = 1
+    EncryptionType_AES = 1,
+    EncryptionType_SECRET_BOX = 2
+  }
+
+  /** CompressionType enum. */
+  enum CompressionType {
+    CompressionType_UNCOMPRESSED = 0,
+    CompressionType_SNAPPY = 1
   }
 }
