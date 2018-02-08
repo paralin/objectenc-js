@@ -1,10 +1,11 @@
 import { objectenc } from './pb'
 import { IEncryptionImpl } from './impl'
 import { AES } from './aes'
+import { SecretBox } from './secretbox'
 import { Passthrough } from './passthrough'
 
 // encryptionImplList is the list of all known encryption implementations.
-export const encryptionImplList: IEncryptionImpl[] = [new Passthrough(), new AES()]
+export const encryptionImplList: IEncryptionImpl[] = [new Passthrough(), new AES(), new SecretBox()]
 
 // encryptionImplMap maps encryption type to encryption implementation.
 export type encryptionImplMap = { [key: number]: IEncryptionImpl }

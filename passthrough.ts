@@ -1,12 +1,27 @@
 import { objectenc } from './pb'
-import { IEncryptionImpl } from './impl'
+import { IEncryptionImpl, ICompressionImpl } from './impl'
 import { ResourceResolverFunc } from './resource'
 
-// Passthrough doesn't encrypt the data.
-export class Passthrough implements IEncryptionImpl {
+// Passthrough doesn't encrypt or compress the data.
+export class Passthrough implements IEncryptionImpl, ICompressionImpl {
   // GetEncryptionType returns the encryption type this implementation satisfies.
   public getEncryptionType(): objectenc.EncryptionType {
     return objectenc.EncryptionType.EncryptionType_UNENCRYPTED
+  }
+
+  // GetCompressionType returns the compression type this implementation satisfies.
+  public getCompressionType(): objectenc.CompressionType {
+    return objectenc.CompressionType.CompressionType_UNCOMPRESSED
+  }
+
+  // DecompressBlob decompresses a blob.
+  public async decompressBlob(blob: Uint8Array): Promise<Uint8Array> {
+    return blob
+  }
+
+  // CompressBlob compresses a blob.
+  public async compressBlob(data: Uint8Array): Promise<Uint8Array> {
+    return data
   }
 
   // ValidateMetadata checks the metadata field.

@@ -35,7 +35,12 @@ describe('AES', () => {
   })
 
   it('encrypts and decrypts correctly from registered implementation', async () => {
-    let blob = await Encrypt(objectenc.EncryptionType.EncryptionType_AES, data, keyResolver)
+    let blob = await Encrypt(
+      objectenc.EncryptionType.EncryptionType_AES,
+      objectenc.CompressionType.CompressionType_SNAPPY,
+      data,
+      keyResolver
+    )
     let decBlob = await Decrypt(blob, keyResolver)
     expect(decBlob).toEqual(data)
   })

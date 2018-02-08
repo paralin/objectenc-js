@@ -22,7 +22,11 @@ describe('Encrypt', () => {
   }
 
   it('encrypts passthrough', async () => {
-    let encBlob = await Encrypt(objectenc.EncryptionType.EncryptionType_UNENCRYPTED, data)
+    let encBlob = await Encrypt(
+      objectenc.EncryptionType.EncryptionType_UNENCRYPTED,
+      objectenc.CompressionType.CompressionType_UNCOMPRESSED,
+      data
+    )
     expect(encBlob.encData).toEqual(data)
   })
 })

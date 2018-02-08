@@ -20,4 +20,7 @@ finalize objectenc
 pbjs -t static-module -w commonjs -o ./pb/aes.js ./proto/aes/aes.proto
 finalize aes
 
+pbjs -t static-module -w commonjs -o ./pb/secretbox.js ./proto/secretbox/secretbox.proto
+finalize secretbox
+
 npm run precommit

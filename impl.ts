@@ -16,6 +16,17 @@ export interface IEncryptionImpl {
   // EncryptBlob encrypts a blob.
   encryptBlob(
     resolver: ResourceResolverFunc | null,
-    blob: Uint8Array
+    blob: Uint8Array,
+    blobUncompressed: Uint8Array
   ): Promise<objectenc.EncryptedBlob>
+}
+
+// ICompressionImpl is a compression implementation.
+export interface ICompressionImpl {
+  // GetCompressionType returns the compression type this implementation satisfies.
+  getCompressionType(): objectenc.CompressionType
+  // DecompressBlob decompresses a blob.
+  decompressBlob(blob: Uint8Array): Promise<Uint8Array>
+  // CompressBlob compresses a blob.
+  compressBlob(data: Uint8Array): Promise<Uint8Array>
 }

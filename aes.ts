@@ -93,9 +93,10 @@ export class AES implements IEncryptionImpl {
   // EncryptBlob encrypts a blob.
   public async encryptBlob(
     resolver: ResourceResolverFunc,
-    data: Uint8Array
+    data: Uint8Array,
+    dataUncompressed: Uint8Array
   ): Promise<objectenc.EncryptedBlob> {
-    let iv = <Uint8Array>crypto.getRandomValues(new Uint8Array(aesIvLen))
+    let iv = crypto.getRandomValues(new Uint8Array(aesIvLen)) as Uint8Array
     let meta = new aes.AESMetadata({ iv })
     let blob = new objectenc.EncryptedBlob({
       encType: objectenc.EncryptionType.EncryptionType_AES
