@@ -3,6 +3,7 @@ export * from './builtin'
 
 export * from './resource'
 export * from './resource-key'
+export * from './resource-secretbox'
 
 export * from './blob'
 
