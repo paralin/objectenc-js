@@ -45,10 +45,4 @@ describe('SecretBox', () => {
     let decBlob = await Decrypt(blob, sbResolver)
     expect(decBlob).toEqual(data)
   })
-
-  it('throws an error without a resolver', async () => {
-    expect(
-      Encrypt(objectenc.EncryptionType.EncryptionType_SECRET_BOX, data, null)
-    ).rejects.toThrow()
-  })
 })
