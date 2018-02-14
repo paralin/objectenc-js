@@ -15,5 +15,12 @@
         "typeRoots": [
           "node_modules/@types"
         ]
-    }
+    },
+    "exclude": [
+        "test",
+        "dist",
+        "coverage",
+        "node_modules",
+        "prototree"
+    ]
 }

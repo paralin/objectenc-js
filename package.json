@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.2.0",
   "description": "Object encryption with pluggable encryption schemes.",
-  "main": "index.ts",
+  "main": "dist/es/index.js",
+  "types": "dist/types/index.d.ts",
   "author": "Christian Stewart <christian@paral.in>",
   "repository": {
     "type": "git",
