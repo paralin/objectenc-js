@@ -5,7 +5,7 @@ import { ISecretBoxResource } from './resource-secretbox'
 
 import * as nacl from 'tweetnacl'
 import * as multihashing from 'multihashing'
-import toBuffer from 'typedarray-to-buffer'
+import * as toBuffer from 'typedarray-to-buffer'
 
 // validateSecretBoxMetadata checks SecretBox metadata.
 export function validateSecretBoxMetadata(meta: secretbox.SecretBoxMetadata): Error | null {
